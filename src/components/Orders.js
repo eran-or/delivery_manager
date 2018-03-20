@@ -1,20 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import moment from 'moment-twitter'
+
 
 class Orders extends Component {
-  render() {
 
+  render() {
+    console.log(moment().twitterShort())
+    const orders = [{address:"abba ahimeir 109/12", time:moment().twitterShort()}]
     return (
-      <header className="row navbar navbar-dark bg-dark bd-navbar ">
-        <h3 className="navbar-brand col-md-4 mb-0">Shared Delivery Manager</h3>
-        <ul className="nav mr-auto">
-          <li className="nav-item">
-            <NavLink to="/orders"> Orders </NavLink>
-          </li>
+      <div>
+        <ul>
+          {orders.map((o,k) => {
+            return (
+              <li key={k}>
+                <div><Link to="">{o.address}</Link></div>
+                <div><Link to="">{o.time}</Link></div>
+              </li>
+            )
+          })}
         </ul>
-      </header>
+      </div>
     )
   }
 
 }
-export default Orders
+
+
+export default connect()(Orders)

@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Dashboard from '../components/Dashboard'
 import Navbar from '../components/Navbar'
+import Dashboard from '../components/Dashboard'
+import Orders from '../components/Orders'
 
 const AppRouter = (props) => (
     <Router basename="/">
@@ -9,6 +10,7 @@ const AppRouter = (props) => (
           <Navbar />
             <Switch>
                 <Route path="/" component={Dashboard} exact={true} />
+                <Route path="/Orders" component={Orders} exact={true} />
             </Switch>
         </div>
     </Router >
