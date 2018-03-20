@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/*Navbar*/
+.navbar .nav-item a{color:white;}
+.navbar .nav-item a:hover{color:whitesmoke; text-decoration: none;}
