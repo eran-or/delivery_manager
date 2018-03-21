@@ -19,7 +19,7 @@ const Dashboard = (props) => {
           <div className="card-body"></div>
         </div>
       </div>
-      <OrdersMap lat={40.714232} lng={-73.9612889} className="dashboardMap" />
+      <OrdersMap lat={31.243511} lng={34.791478} className="dashboardMap" address="באר שבע" />
     </div>
   );
 }
