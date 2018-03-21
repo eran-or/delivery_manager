@@ -1,5 +1,8 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import ordersReducer from '../reducers/orders'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
   //Store cretion
@@ -7,11 +10,7 @@ export default () => {
     combineReducers({
       orders: ordersReducer
     }),
-    compose(
-      applyMiddleware(
-        //stateRecovery
-      ),(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
-    )
+    composeEnhancers(applyMiddleware(thunk))
   )
   return store
 }
