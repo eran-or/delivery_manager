@@ -8,18 +8,17 @@ export default class GoogleMap extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.map.panTo({ lat: nextProps.lat, lng: nextProps.lng })
-
   }
 
   geocodeAddress(geocoder, resultsMap) {
     //var address = document.getElementById('address').value;
-    const {addresses} = this.props
+    const { addresses } = this.props
     addresses.forEach(address => {
-      console.log(address)
-      geocoder.geocode({ 'address': address }, (results, status) => { 
+      
+      geocoder.geocode({ 'address': address }, (results, status) => {
         if (status === 'OK') {
           resultsMap.setCenter(results[0].geometry.location)
-          const marker = new this.Maps.Marker({
+          new this.Maps.Marker({
             map: resultsMap,
             position: results[0].geometry.location
           })
