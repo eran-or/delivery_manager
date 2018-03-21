@@ -13,31 +13,33 @@ export default class GoogleMap extends Component {
 
   geocodeAddress(geocoder, resultsMap) {
     //var address = document.getElementById('address').value;
-    const {address} = this.props
-    geocoder.geocode({ 'address': address }, (results, status) => { 
-      if (status === 'OK') {
-        resultsMap.setCenter(results[0].geometry.location)
-        console.log(this.Maps)
-        const marker = new this.Maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
-        })
-      } else {
-        console.log('Geocode was not successful for the following reason: ' + status)
-      }
-    })
+    const {addresses} = this.props
+    addresses.forEach(address => {
+      console.log(address)
+      geocoder.geocode({ 'address': address }, (results, status) => { 
+        if (status === 'OK') {
+          resultsMap.setCenter(results[0].geometry.location)
+          const marker = new this.Maps.Marker({
+            map: resultsMap,
+            position: results[0].geometry.location
+          })
+        } else {
+          console.log('Geocode was not successful for the following reason: ' + status)
+        }
+      })
+    });
   }
 
   componentDidMount() {
     fetchGoogleMaps({
       apiKey: 'AIzaSyAMYJdygNgDsaj4ZJmW--cCTxDTMpTRc7w',
-      language: 'en',
+      language: 'he',
       libraries: ['places']
     }).then((Maps) => {
       this.Maps = Maps
       this.map = new this.Maps.Map(this.refs.map, {
         center: { lat: this.props.lat, lng: this.props.lng },
-        zoom: 8
+        zoom: 12
       })
       const geocoder = new this.Maps.Geocoder()
       this.geocodeAddress(geocoder, this.map);
