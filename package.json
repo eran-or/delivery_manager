@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "fetch-google-maps": "^2.0.1",
     "moment": "^2.21.0",
     "moment-twitter": "^0.2.0",
     "react": "^16.2.0",

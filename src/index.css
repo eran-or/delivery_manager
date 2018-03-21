@@ -5,5 +5,6 @@ body {
 }
 
 /*Navbar*/
-.navbar .nav-item a{color:white;}
-.navbar .nav-item a:hover{color:whitesmoke; text-decoration: none;}
+.navbar a{color:white;}
+.navbar a:hover{color:whitesmoke; text-decoration: none;}
+.dashboardMap{width:500px;height:500px;}

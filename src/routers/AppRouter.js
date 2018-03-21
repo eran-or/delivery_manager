@@ -10,7 +10,7 @@ const AppRouter = (props) => (
           <Navbar />
             <Switch>
                 <Route path="/" component={Dashboard} exact={true} />
-                <Route path="/Orders" component={Orders} exact={true} />
+                <Route path="/orders" component={Orders} exact={true} />
             </Switch>
         </div>
     </Router >
