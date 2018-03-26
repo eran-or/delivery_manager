@@ -3,8 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+ul{padding-left:20px;}
+li{list-style: none;}
+details,summary{outline: none;}
 
 /*Navbar*/
 .navbar a{color:white;}
 .navbar a:hover{color:whitesmoke; text-decoration: none;}
-.dashboardMap{width:500px;height:500px;}
+.dashboard-map{width:500px;height:500px;}
+.dashboard-right-list{
+  width:300px;
+  overflow-x:scroll;
+}
+
+

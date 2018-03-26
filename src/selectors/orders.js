@@ -1,3 +1,3 @@
-export default (orders)=>{
-  return orders.map(order=>order.deliveryAddress)
+export const ordersAddress = (orders)=>{
+  return orders.map(order=>order.address.address)
 }

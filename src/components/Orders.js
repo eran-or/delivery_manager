@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchOrders } from '../actions/orders'
 
 const Orders = (props) => {
+  console.log(props)
   const {orders} = props
     return (
       <div>

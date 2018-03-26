@@ -1,34 +1,43 @@
-import moment from 'moment-twitter'
-
+export const setDeliveries = (deliveries) => ({
+  type: 'SET_DELIVERIES',
+  deliveries
+})
 export const fetchDeliveries = () => {
+  
   return (dispatch, getState) => {
     return Promise.resolve({
       deliveries: [
         {
           id: "d123",
-          firstDeliveryAddress: "יצחק בן צבי 2, באר שבע",
+          firstDeliveryAddress: {
+            address:"יצחק בן צבי 2, באר שבע"
+          },
           firstRestaurantAdded: "מאמא טאקו",
           timeToJoin: 20,
           orders: ["o123"],
-          createdAt: moment().twitter()
+          createdAt: new Date()
         },
         {
             id: "d124",
-            firstDeliveryAddress: "יצחק בן צבי 2, באר שבע",
+            firstDeliveryAddress: {
+              address:"יצחק בן צבי 2, באר שבע"
+            },
             firstRestaurantAdded: "מאמא טאקו",
             timeToJoin: 20,
             orders: ["o124"],
-            createdAt: moment().twitter()
+            createdAt: new Date()
         },
         {
             id: "d125",
-            firstDeliveryAddress: "יצחק בן צבי 2, באר שבע",
+            firstDeliveryAddress: {
+              address:"יצחק בן צבי 2, באר שבע"
+            },
             firstRestaurantAdded: "מאמא טאקו",
             timeToJoin: 20,
             orders: ["o125"],
-            createdAt: moment().twitter()
+            createdAt: new Date()
         }
       ]
-    })
+    }).then(data=>dispatch(setDeliveries(data.deliveries)))
   }
 }

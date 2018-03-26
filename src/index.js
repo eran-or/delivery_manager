@@ -7,16 +7,18 @@ import registerServiceWorker from './registerServiceWorker'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import { fetchOrders } from './actions/orders'
+import { fetchDeliveries } from './actions/deliveries'
 
-const store = configureStore();
+const store = configureStore()
 
 const app = (
   <Provider store={store}>
     <AppRouter />
   </Provider>
-);
-
+)
 store.dispatch(fetchOrders()).then(() => {
+  store.dispatch(fetchDeliveries()).then(() => {
   ReactDOM.render(app, document.getElementById('root'))
   registerServiceWorker()  
+  })
 })

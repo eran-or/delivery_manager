@@ -1,37 +1,105 @@
 
-import React from 'react'
+import React, { Component } from 'react'
 //import Header from './Header'
 //import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import OrdersMap from './GoogleMap'
-import selectOrdersAddress from '../selectors/orders';
+import { ordersAddress } from '../selectors/orders'
+import { fetchRestaurantList } from '../services/api'
+import { getCurrencyList } from '../selectors/currencies'
 
- 
-const Dashboard = (props) => {
-  const {addresses} = props
-  console.log(addresses)
-  return (
-    <div className="container d-flex justify-content-center flex-column align-items-center">
-      <div className="dashboardTop row align-items-center">
-        <div className="card mb-4 box-shadow">
-          <div className="card-body"></div>
+import FaMapO from 'react-icons/lib/fa/map-o'
+import MultiSelect from './MultiSelect'
+class Dashboard extends Component {
+
+  getOrderById(id) {
+    const {orders} = this.props 
+    return orders.filter(o=>o.id===id)[0]
+  }
+
+  getRestaurantNameById(id){
+    const {restaurants} = this.props 
+    return "eran"
+    //return restaurants.filter(r=>r.id===id).name
+  }
+
+  getCurrencyFont(code){
+    const {currencies} = this.props
+    return currencies.filter(c=>c.code===code).font
+  }
+
+//   ordersAddress = (orders)=>{
+//   return orders.map(order=>order.address.address)
+// }
+
+  render() {
+    const { addresses, orders, deliveries, getOrderById, getCurrency, restaurants } = this.props
+    
+    return (
+      <div className="d-flex justify-content-center flex-column align-items-center">
+        <div className="dashboardTop row align-items-center">
+          <div className="card mb-4 box-shadow">
+            <div className="card-body"></div>
+          </div>
+          <div className="card mb-4 box-shadow">
+            <div className="card-body"></div>
+          </div>
+          <div className="card mb-4 box-shadow">
+            <div className="card-body"></div>
+          </div>
         </div>
-        <div className="card mb-4 box-shadow">
-          <div className="card-body"></div>
+        <div className="container-fluid flex-row d-flex">
+          <div className="dashboard-right-list">
+            {deliveries.map((d, i) => (
+              <details key={i} className="delivery">
+                <summary>{d.firstRestaurantAdded}</summary>
+                <ul>
+                  {d.orders.map(id => {
+                    const o = this.getOrderById(id)
+                    return (
+                      <li key={id}>
+                        <details>
+                          <summary>{o.address.address}</summary>
+                          <ul>
+                            <li> {o.phoneNumber} </li>
+                            <li> {o.orderItems}</li>
+                            <li>{this.getRestaurantNameById(o.restaurantId)}</li>
+                            <li>{o.createdAt.toString()}</li>
+                            <li>{o.comment}</li>
+                            
+                            <li>{o.totalPrice}({this.getCurrencyFont(o.currency)})</li>
+                          </ul>
+                        </details>
+                      </li>)
+                  })}
+                </ul>
+              </details>))
+            }
+          </div>
+          <div className="d-flex justify-content-between flex-column">
+            <div className="d-flex align-items-center">
+              <FaMapO size="26" />
+              <MultiSelect className="container-fluid pr-0" multi={true} placeholder={"Filter By Restaurants"} values={restaurants} />
+            </div>
+            <OrdersMap lat={31.252973} lng={34.791462} className="dashboard-map" addresses={addresses} />
+          </div>
+
+          <div className="right-side"></div>
         </div>
-        <div className="card mb-4 box-shadow">
-          <div className="card-body"></div>
-        </div>
-      </div>
-      <OrdersMap lat={31.252973} lng={34.791462} className="dashboardMap" addresses={addresses} />
-    </div>
-  );
+      </div>//end container
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-  
   return {
-    addresses: selectOrdersAddress(state.orders)
-  };
-};
-  export default connect(mapStateToProps)(Dashboard)
+    deliveries: state.deliveries,
+    orders: state.orders,
+    addresses: ordersAddress(state.orders),
+    restaurants: fetchRestaurantList(),
+    currencies: getCurrencyList()
+  }
+}
+
+
+export default connect(mapStateToProps)(Dashboard)
