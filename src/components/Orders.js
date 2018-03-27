@@ -4,27 +4,31 @@ import { connect } from 'react-redux'
 import { fetchOrders } from '../actions/orders'
 
 const Orders = (props) => {
-  console.log(props)
   const {orders} = props
+  console.log(orders)
     return (
       <div>
-        <ul>
           {orders.map((o,k) => {
             return (
-              <li key={k}>
-                <div><Link to="">{o.deliveryAddress}</Link></div>
-                <div><Link to="">{o.createdAt}</Link></div>
-              </li>
+              <div key={k}>
+                <div>{o.address.address}</div>
+                <div>{o.createdAt}</div>
+                <div>{o.deviceInfo}</div>
+                <div>{o.phoneNumber}</div>
+                <div>{o.orderItems}</div>
+                <div>{o.comment}</div>
+                <div>{o.currency}</div>
+              </div>
             )
           })}
-        </ul>
+        
       </div>
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    orders: dispatch(fetchOrders())
+    orders: state.orders
   }
 }
-export default connect(null, mapDispatchToProps)(Orders)
+export default connect(mapStateToProps)(Orders)
