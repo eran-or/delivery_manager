@@ -23,8 +23,7 @@ class Dashboard extends Component {
     map:{
       width:'500px',
       height:'500px'
-    }
-    
+    }  
   }
   getOrderById(id) {
     const {orders} = this.props 
@@ -87,7 +86,6 @@ class Dashboard extends Component {
                             <li>{this.getRestaurantNameById(o.restaurantId)}</li>
                             <li>{o.createdAt.toString()}</li>
                             <li>{o.comment}</li>
-                            
                             <li>{o.totalPrice}({this.getCurrencyFont(o.currency)})</li>
                           </ul>
                         </details>
@@ -112,8 +110,14 @@ class Dashboard extends Component {
             {!this.state.listView&&
             <OrdersMap lat={31.252973} lng={34.791462} style={this.styles.map} addresses={addresses} />
             }
+            
+            {
+              this.state.listView&&
+              <div className="text-right">
+                {addresses.map((a,i)=> <div key={i}>{a}</div> )}
+              </div>
+            }
           </div>
-
           <div className="right-side"></div>
         </div>
       </div>//end container
