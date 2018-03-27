@@ -56,7 +56,7 @@ export default class GoogleMap extends Component {
   }
   render() {
     return (
-      <div id="map" ref="map" className={this.props.className} />
+      <div id="map" ref="map" style={this.props.style} />
     )
   }
 }

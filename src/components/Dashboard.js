@@ -12,6 +12,20 @@ import MultiSelect from './MultiSelect'
 class Dashboard extends Component {
 
   state = {}
+  styles = {
+    filterbox:{
+      minWidth:'500px'
+    },
+    rightList:{
+      width:'300px',
+      overflowX:'scroll'
+    },
+    map:{
+      width:'500px',
+      height:'500px'
+    }
+    
+  }
   getOrderById(id) {
     const {orders} = this.props 
     return orders.filter(o=>o.id===id)[0]
@@ -44,7 +58,7 @@ class Dashboard extends Component {
     const addresses = this.state.addresses || ordersAddress(orders)
     return (
       <div className="d-flex justify-content-center flex-column align-items-center">
-        <div className="dashboardTop row align-items-center">
+        <div className="row align-items-center">
           <div className="card mb-4 box-shadow">
             <div className="card-body"></div>
           </div>
@@ -56,9 +70,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className="container-fluid flex-row d-flex">
-          <div className="dashboard-right-list">
+          <div style={this.styles.rightList}>
             {orders.length>0&&deliveries.map((d, i) => (
-              <details key={i} className="delivery">
+              <details key={i} className="delivery" style={this.styles.rightList}>
                 <summary>{d.firstRestaurantAdded}</summary>
                 <ul>
                   {d.orders.map(id => {
@@ -84,8 +98,9 @@ class Dashboard extends Component {
             }
           </div>
           <div className="d-flex justify-content-between flex-column">
-            <div className="d-flex align-items-center">
-              <FaMapO size="26" />
+            <div className="d-flex align-items-center" style={this.styles.filterbox}>
+              <FaMapO size="26" onClick={()=>this.setState({listView:false})}/>
+              <span className="ml-2 pl-2 border-left pointer" onClick={()=>this.setState({listView:true})}>רשימה</span>
               <MultiSelect 
                 className="container-fluid pr-0 "  
                 multi={true} 
@@ -94,7 +109,9 @@ class Dashboard extends Component {
                 values={restaurants} 
                 handleSelect={this.handleSelect} />
             </div>
-            <OrdersMap lat={31.252973} lng={34.791462} className="dashboard-map" addresses={addresses} />
+            {!this.state.listView&&
+            <OrdersMap lat={31.252973} lng={34.791462} style={this.styles.map} addresses={addresses} />
+            }
           </div>
 
           <div className="right-side"></div>
