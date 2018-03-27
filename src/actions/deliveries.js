@@ -10,7 +10,7 @@ export const fetchDeliveries = () => {
         {
           id: "d123",
           firstDeliveryAddress: {
-            address:"יצחק בן צבי 2, באר שבע"
+            address: "יצחק בן צבי 2, באר שבע"
           },
           firstRestaurantAdded: "מאמא טאקו",
           timeToJoin: 20,
@@ -20,7 +20,7 @@ export const fetchDeliveries = () => {
         {
             id: "d124",
             firstDeliveryAddress: {
-              address:"יצחק בן צבי 2, באר שבע"
+              address:'הרצל 97, באר שבע'
             },
             firstRestaurantAdded: "מאמא טאקו",
             timeToJoin: 20,
@@ -30,7 +30,7 @@ export const fetchDeliveries = () => {
         {
             id: "d125",
             firstDeliveryAddress: {
-              address:"יצחק בן צבי 2, באר שבע"
+              address: 'הרצל 21, באר שבע'
             },
             firstRestaurantAdded: "מאמא טאקו",
             timeToJoin: 20,

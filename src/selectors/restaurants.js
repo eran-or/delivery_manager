@@ -1,3 +1,3 @@
-export const getRestaurantList = ()=>{
-  return []
+export const selectRestaurants = (restaurants, filter)=>{
+  return restaurants
 }

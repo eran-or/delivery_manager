@@ -31,7 +31,7 @@ export const fetchOrders = () => {
           address: {
             address: 'הרצל 97, באר שבע'
           },
-          restaurantId: 'R123', // - TBD
+          restaurantId: 'R231', // - TBD
           payment: {}, // - TBD
           createdAt: new Date(),
           comment: 'comment string',
@@ -45,7 +45,7 @@ export const fetchOrders = () => {
           requestedDeliveryId: 'o123',
           orderItems: ['fried chicken', 'steak'],
           address: {
-            address: 'הרצל 97, באר שבע'
+            address: 'הרצל 21, באר שבע'
           },
           restaurantId: 'R123', // - TBD
           payment: {}, // - TBD

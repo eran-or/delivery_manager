@@ -19,6 +19,6 @@ const app = (
 store.dispatch(fetchOrders()).then(() => {
   store.dispatch(fetchDeliveries()).then(() => {
   ReactDOM.render(app, document.getElementById('root'))
-  registerServiceWorker()  
+  registerServiceWorker()
   })
 })

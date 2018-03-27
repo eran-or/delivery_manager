@@ -2,7 +2,6 @@ import "react-select/dist/react-select.css"
 import "react-virtualized/styles.css"
 import "react-virtualized-select/styles.css"
 import React, { Component } from 'react'
-import createFilterOptions from "react-select-fast-filter-options"
 import Async from "react-virtualized-select"
 
 class MultiSelect extends Component {
@@ -13,6 +12,7 @@ class MultiSelect extends Component {
   }
 
   handleOnChange = (value) => {
+    this.props.handleSelect(value)
     this.setState({ value })
   }
 
@@ -25,12 +25,13 @@ class MultiSelect extends Component {
 
   render() {
     
-     const { values, placeholder, multi, className } = this.props
-     const { isLoadingExternally, options, value} = this.state
-     console.log(this.state.options)
+     const { placeholder, multi, className, rtl } = this.props
+     const { options, value} = this.state
+     
     return (
-      <Async className={className} multi={true} value={value} multi={multi} rtl={true} placeholder={placeholder} options={options} onChange={this.handleOnChange} />
+      <Async className={className} value={value} multi={multi} rtl={rtl} placeholder={placeholder} options={options} onChange={this.handleOnChange} />
     )
   }
 }
+
 export default MultiSelect
