@@ -1,4 +1,4 @@
-export const ordersAddress = orders => orders.map(order => order.address.address)
+export const ordersAddress = orders => orders.map(order => order.addressInfo.address)
 
 export const filterByRestaurants = (orders, restaurants) => {
   const arr = restaurants.map(r => r.id)

@@ -11,7 +11,7 @@ const Orders = (props) => {
           {orders.map((o,k) => {
             return (
               <div key={k}>
-                <div>{o.address.address}</div>
+                <div>{o.addressInfo.address}</div>
                 <div>{o.createdAt}</div>
                 <div>{o.deviceInfo}</div>
                 <div>{o.phoneNumber}</div>
