@@ -68,7 +68,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { getOrderById, getCurrency, restaurants } = this.props
+    const { restaurants } = this.props
     const {deliveries} = this.state
     const addresses = this.state.addresses
     return (
