@@ -11,5 +11,6 @@ details,summary{outline: none;}
 /*Dynamic bootstrap Classes*/
 .navbar a{color:white;}
 .navbar a:hover{color:whitesmoke; text-decoration: none;}
-
+.VirtualizedSelectOption {direction: rtl;}
+.VirtualizedSelectFocusedOption{background:rgba(0, 0, 0, 0.05)}
 

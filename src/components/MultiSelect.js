@@ -18,9 +18,7 @@ class MultiSelect extends Component {
 
   componentDidMount(){
     const {values} = this.props
-    
-    values.then(d=>this.setState({options:d.restaurants}))
-      
+    this.setState({options:values})      
   }
 
   render() {

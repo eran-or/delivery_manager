@@ -1,6 +1,1 @@
-export const ordersAddress = orders => orders.map(order => order.addressInfo.address)
-
-export const filterByRestaurants = (orders, restaurants) => {
-  const arr = restaurants.map(r => r.id)
-  return orders.filter(o => arr.includes(o.restaurantId))
-}
+export const selectOneFromOrders = (id, orders) => orders.filter(o => id===o.id)[0].addressInfo.address

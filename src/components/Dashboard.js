@@ -4,14 +4,18 @@ import React, { Component } from 'react'
 //import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import OrdersMap from './GoogleMap'
-import { ordersAddress, filterByRestaurants } from '../selectors/orders'
-import { fetchRestaurantList } from '../services/api'
+import { filteredDeliveriesByRestaurants } from 'selectors/deliveries'
+import { selectOneFromOrders } from 'selectors/orders'
 import FaMapO from 'react-icons/lib/fa/map-o'
 import MultiSelect from './MultiSelect'
 
 class Dashboard extends Component {
 
-  state = {}
+  state = {
+    // filters:{
+    //   restaurants:true
+    // }
+  }
   styles = {
     
     deliveriesList: {
@@ -22,7 +26,7 @@ class Dashboard extends Component {
       width: '100%',
       height: '500px'
     },
-    dirRtl:{
+    rtl:{
       direction:'rtl'
     }
   }
@@ -33,7 +37,7 @@ class Dashboard extends Component {
 
   getRestaurantNameById(id) {
     const { restaurants } = this.props
-    console.log(restaurants)
+   //  console.log(restaurants)
     return "eran"
   }
 
@@ -43,58 +47,58 @@ class Dashboard extends Component {
   }
 
   handleSelect = (restaurants) => {
-    const { orders } = this.props
-    let addresses;
-    if (restaurants.length > 0) {
-      const fitered = filterByRestaurants(orders, restaurants)
-      addresses = fitered.map(order => order.addressInfo.address)
-    } else {
-      addresses = ordersAddress(orders)
-    }
-    this.setState({ addresses })
+    const { orders, deliveries } = this.props
+   // console.log(restaurants)
+    const filteredDeliveries = filteredDeliveriesByRestaurants(deliveries ,orders, restaurants)
+    const orderIds = filteredDeliveries.reduce((a,d)=> a.concat(d.orders),[])
+    const addresses = orderIds.map(id => selectOneFromOrders(id, orders))
+    console.log(addresses)
+    this.setState({ addresses,deliveries:filteredDeliveries })
+  }
+
+  // handleFiltersChange=(e)=>{
+  //   const name = e.target.name,
+  //   checked = e.target.checked
+  //   this.setState(prevState=>({
+  //     filters:{...prevState.filters,[name]:checked}
+  //   }))
+  // }
+
+  componentWillMount(){
+    this.handleSelect()
   }
 
   render() {
-    const { orders, deliveries, getOrderById, getCurrency, restaurants } = this.props
-    const addresses = this.state.addresses || ordersAddress(orders)
+    console.log("render dashboard")
+    const { getOrderById, getCurrency, restaurants } = this.props
+    const {deliveries} = this.state
+    const addresses = this.state.addresses
     return (
-      <div className="d-flex justify-content-center flex-column align-items-center">
-        {/* <div className="row align-items-center">
-          <div className="card mb-4 box-shadow">
-            <div className="card-body"></div>
-          </div>
-          <div className="card mb-4 box-shadow">
-            <div className="card-body"></div>
-          </div>
-          <div className="card mb-4 box-shadow">
-            <div className="card-body"></div>
-          </div>
-        </div> */}
-        <div className="container-fluid flex-row-reverse d-flex mt-5">
-
+      <div className="d-flex justify-content-center flex-column align-items-center pt-5">
+          {/* <div className="mb-3 d-flex" style={this.styles.rtl}> סנן לפי:
+            <div className="pr-2"><input className="ml-1" type="checkbox" name="restaurants" checked={filters.restaurants} onChange={this.handleFiltersChange}/>מסעדות</div>
+          </div> */}
+        <div className="container-fluid flex-row-reverse d-flex">
           <div style={this.styles.rightList} className="text-right">
             <h5>משלוחים</h5>
-            {orders.length > 0 && deliveries.map((d, i) => (
+            {deliveries.length > 0 && deliveries.map((d, i) => (
               <div key={i} className="delivery" style={this.styles.deliveriesList}>
-              {console.log(d.departureTime().toString())}
-                <header>{d.departureTime().toString()}</header>
+                <header style={this.styles.rtl}>זמן יציאה: {new Date(d.departureTime).toLocaleTimeString()}</header>
                 <ul>
                   {d.orders.map(id => {
                     const o = this.getOrderById(id)
                     return (
                       <li key={id}>
-                        <details style={this.styles.dirRtl}>
+                        <details style={this.styles.rtl}>
                           <summary>{o.addressInfo.address}</summary>
                           <ul>
                           <li>שם: {o.name}</li>
                             <li>טלפון: {o.phoneNumber}</li>
                             <li>פריטים: [{o.orderItems.join(",")}]</li>
                             <li>מסעדה: {this.getRestaurantNameById(o.restaurantId)}</li>
-                            <li>זמן הגעה משוער: {o.createdAt.toString()}</li>
-                            <li>זמן יציאה: {o.createdAt.toString()}</li>
-                            <li>הוזמן ב: {o.createdAt.toString()}</li>
+                            <li>זמן הגעה משוער: {new Date(new Date(o.createdAt).getTime()+10000000).toLocaleTimeString()}</li>
+                            <li>הוזמן ב: {new Date(o.createdAt).toLocaleTimeString()}</li>
                             <li>{o.comment}</li>
-                            <li>{o.totalPrice}({this.getCurrencyFont(o.currency)})</li>
                           </ul>
                         </details>
                       </li>)
@@ -108,13 +112,15 @@ class Dashboard extends Component {
               <FaMapO size="26" onClick={() => this.setState({ listView: false })} />
               <span className="ml-2 pl-2 border-left pointer" onClick={() => this.setState({ listView: true })}>רשימה</span>
               <MultiSelect
-                className="container-fluid pr-0 "
+              
+                className="container-fluid p-0 ml-4 mb-1"
                 multi={true}
                 rtl={true}
                 placeholder={"סנן לפי מסעדות"}
                 values={restaurants}
                 handleSelect={this.handleSelect} />
             </div>
+            {/*GoogleMap*/}
             {!this.state.listView &&
               <OrdersMap lat={31.252973} lng={34.791462} style={this.styles.map} addresses={addresses} />
             }
@@ -137,8 +143,7 @@ const mapStateToProps = (state) => {
   return {
     deliveries: state.deliveries,
     orders: state.orders,
-    restaurants: fetchRestaurantList(),
-    currencies: []
+    restaurants: state.restaurants
   }
 }
 

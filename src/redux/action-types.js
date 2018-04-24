@@ -1,0 +1,8 @@
+export const API = 'API'
+export const ON_LOAD = 'ON_LOAD'
+export const LOADED = 'LOADED'
+export const SET_ORDERS = 'SET_ORDERS'
+export const SET_DELIVERIES = 'SET_DELIVERIES'
+export const ON_QUEUE = 'ON_QUEUE'
+export const FINISH_QUEUE = 'FINISH_QUEUE'
+//export const SET_RESTAURANTS = 'SET_RESTAURANTS'

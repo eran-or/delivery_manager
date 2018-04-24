@@ -51,6 +51,7 @@ export default class GoogleMap extends Component {
       })
       this.geocoder = new this.Maps.Geocoder()
       const { addresses } = this.props
+     // console.log(addresses)
       this.geocodeAddress(this.geocoder, this.map, addresses);
     });
   }

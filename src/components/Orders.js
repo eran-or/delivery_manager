@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchOrders } from '../actions/orders'
+//import { fetchOrders } from 'redux/actions/orders'
 
 const Orders = (props) => {
   const {orders} = props
