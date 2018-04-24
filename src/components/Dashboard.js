@@ -37,8 +37,7 @@ class Dashboard extends Component {
 
   getRestaurantNameById(id) {
     const { restaurants } = this.props
-   //  console.log(restaurants)
-    return "eran"
+    return restaurants.filter(r=>r.id===id)[0].label
   }
 
   getCurrencyFont(code) {
@@ -69,7 +68,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log("render dashboard")
     const { getOrderById, getCurrency, restaurants } = this.props
     const {deliveries} = this.state
     const addresses = this.state.addresses
