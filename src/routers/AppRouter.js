@@ -5,7 +5,7 @@ import Dashboard from '../components/Dashboard'
 import Orders from '../components/Orders'
 
 const AppRouter = (props) => (
-    <Router basename="/">
+    <Router basename="/delivery_manager/">
         <div>
           <Navbar />
             <Switch>

@@ -24,7 +24,7 @@ const fetchOnLoadData = () => ({
   payload:{
     actions:[fetchDeliveries, fetchRestaurants, fetchOrders],
     success: () => {
-      console.log("success")
+      //console.log("success")
       ReactDOM.render(app, document.getElementById('root'))
       registerServiceWorker()
       return {
